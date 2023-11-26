@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT
 const mongoose = require("mongoose");
 require("dotenv/config");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 dotenv.config();
+
 
 const DB_CONNECTION = process.env.DB_CONNECTION;
 
@@ -29,4 +31,6 @@ db.once("open", function () {
 });
 
 app.use(express.json());
-app.listen(3000);
+app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
+  });
