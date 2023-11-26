@@ -2,9 +2,23 @@ const express = require("express");
 const router = express.Router();
 const Post = require("../models/Post");
 
-router.get("/", (req, res) => {
-    res.send("We are one Post");
-});
+router.get("/all", async (req, res) => {
+    try {
+      const allPosts = await Post.find();
+      
+      res.json({
+        response: {
+          scriptResult: allPosts,
+          scriptError: "0",
+          modId: "4"
+        },
+        messages: [{ code: "0", message: "OK" }]
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 
 router.post("/", async (req, res) => {
     try {
